@@ -3,46 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripHube AI | رفيق سفرك الذكي</title>
+    <title>TripHube AI | مساعدك بالسفر</title>
+    <!-- كود أدسنس -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9151180653196204" crossorigin="anonymous"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #000; color: #fff; text-align: center; }
-        .bg-video { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; opacity: 0.5; object-fit: cover; }
-        .container { padding: 20px; background: rgba(0,0,0,0.7); border-radius: 20px; margin: 20px; }
-        .search-area { width: 100%; height: 500px; border: none; border-radius: 10px; background: white; margin-top: 20px; }
-        .footer-note { font-size: 0.8rem; color: #ccc; margin-top: 20px; }
-        .warning { color: #ff4d4d; font-weight: bold; }
+        :root {
+            --primary-bg: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-color: #333;
+            --accent-color: #007bff;
+            --border-radius: 20px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* خلفية الفيديو المتحركة */
+        .video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            opacity: 0.3; /* شفافية خفيفة */
+        }
+
+        .main-container {
+            width: 90%;
+            max-width: 400px; /* ليتناسب مع حجم الجوال في الصور */
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+            padding-bottom: 20px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: url('https://image_3.png') no-repeat center center; /* أيقونة تشبه الموجودة في image_3.png */
+            background-size: contain;
+        }
+
+        .header-title {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .contact-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hero-section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 0 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .budget-options {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .budget-card {
+            flex: 1;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .budget-card.active {
+            border-color: var(--accent-color);
+            background: rgba(0, 123, 255, 0.05);
+            box-shadow: 0 0 10px rgba(0,123,255,0.1);
+        }
+
+        .budget-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .budget-label {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .input-group {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: #aaa;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 35px 12px 10px; /* مساحة للأيقونة على اليمين */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+
+        .search-btn {
+            width: 100%;
+            padding: 15px;
+            background: #febb02; /* اللون الأصفر من image_3.png */
+            color: #333;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #fccb03;
+        }
+
+        /* قسم إخلاء المسؤولية */
+        .footer-disclaimer {
+            font-size: 0.75rem;
+            color: #777;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        .warning-text {
+            color: #d9534f; /* لون تحذيري */
+            font-weight: bold;
+        }
+
+        /* تحسينات للجوال */
+        @media (max-width: 480px) {
+            .hero-title { font-size: 1.5rem; }
+            .hero-subtitle { font-size: 0.8rem; }
+            .search-container { margin: 0 10px; padding: 15px; }
+        }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop class="bg-video">
+    <!-- خلفية الفيديو المتحركة (ضع رابط فيديو حقيقي هنا) -->
+    <video autoplay muted loop class="video-bg">
         <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
     </video>
 
-    <div class="container">
-        <h1>TripHube AI 🤖</h1>
-        <p>كل خدمات السفر بذكاء اصطناعي واحد. (مجاني تماماً - لا نطلب أي دفع)</p>
-        
-        <input type="text" id="searchInput" placeholder="اكتب وجهتك أو طلبك هنا..." style="padding:10px; width:80%; border-radius:5px;">
-        <button onclick="performSearch()">بحث داخل الموقع</button>
+    <div class="main-container">
+        <!-- الهيدر -->
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo-icon"></div>
+                <div class="header-title">مساعدك بالسفر</div>
+            </div>
+            <button class="contact-btn">✉️ تواصل معنا</button>
+        </div>
 
-        <iframe id="searchFrame" class="search-area" src="about:blank"></iframe>
+        <!-- قسم الهيرو -->
+        <div class="hero-section">
+            <div class="hero-title">مساعدك بالسفر</div>
+            <div class="hero-subtitle">خطط لرحلتك المثالية بمساعدة الذكاء الاصطناعي</div>
+            <div class="hero-subtitle" style="font-size: 0.8rem; color: #888;">
+                مقارنة شاملة • طيران • فنادق • مطاعم • سيارات • معالم سياحية
+            </div>
+        </div>
 
-        <div class="footer-note">
-            <p>تواصل معنا: nnnnj911ksa@Gmail.com</p>
-            <p class="warning">⚠️ تنبيه: احذر من المنتحلين، نحن لا نطلب أي مبالغ مالية، جميع خدماتنا مجانية!</p>
-            <p>خصوصية عالية وحماية فائقة لمستخدمي TripHube.</p>
+        <!-- حاوية البحث (نفس شكل image_3.png) -->
+        <div class="search-container">
+            <!-- خيارات الميزانية -->
+            <div class="budget-options">
+                <div class="budget-card">
+                    <div class="budget-icon">💎</div>
+                    <div class="budget-label">فاخر</div>
+                </div>
+                <div class="budget-card active">
+                    <div class="budget-icon">✨</div>
+                    <div class="budget-label">متوسط</div>
+                </div>
+                <div class="budget-card">
+                    <div class="budget-icon">💰</div>
+                    <div class="budget-label">اقتصادي</div>
+                </div>
+            </div>
+
+            <!-- حقل الإقلاع -->
+            <div class="input-group">
+                <label class="input-label">🛫 مدينة الإقلاع</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">📍</span>
+                    <input type="text" class="search-input" placeholder="جدة، الرياض، دبي...">
+                </div>
+            </div>
+
+            <!-- حقل الوجهة -->
+            <div class="input-group">
+                <label class="input-label">🛬 مدينة الوصول</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">🌐</span>
+                    <input type="text" class="search-input" placeholder="باريس، طوكيو، لندن...">
+                </div>
+            </div>
+
+            <!-- زر البحث الأصفر -->
+            <button class="search-btn">🔍 ابحث باستخدام الذكاء الاصطناعي</button>
+        </div>
+
+        <!-- قسم إخلاء المسؤولية وشروط أدسنس -->
+        <div class="footer-disclaimer">
+            <p>تواصل معنا: <a href="mailto:nnnnj911ksa@Gmail.com" style="color: var(--accent-color);">nnnnj911ksa@Gmail.com</a></p>
+            <p class="warning-text">⚠️ تنبيه هـام: احذر من المنتحلين!</p>
+            <p>نحن في TripHube AI **لا نطلب أي مبالغ مالية** مقابل خدماتنا. كل خدماتنا مجانية تماماً.</p>
+            <p>خصوصية بياناتك محمية لدينا، ولا نشاركها مع أي طرف ثالث.</p>
         </div>
     </div>
 
     <script>
-        function performSearch() {
-            const query = document.getElementById('searchInput').value;
-            const frame = document.getElementById('searchFrame');
-            // البحث يتم داخل الموقع عبر محرك جوجل المدمج
-            frame.src = `https://www.google.com/search?q=${query}+travel+guide+TripHube&igu=1`;
-        }
+        // تفعيل اختيار بطاقات الميزانية
+        const budgetCards = document.querySelectorAll('.budget-card');
+        budgetCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // إزالة فئة active من الجميع
+                budgetCards.forEach(c => c.classList.remove('active'));
+                // إضافة فئة active للبطاقة التي تم النقر عليها
+                card.classList.add('active');
+            });
+        });
+
+        // وظيفة البحث (يمكن تخصيصها لاحقاً لربطها بـ API حقيقي)
+        document.querySelector('.search-btn').addEventListener('click', () => {
+            alert('جاري محاكاة البحث بالذكاء الاصطناعي... (هذه ميزة للعرض فقط حالياً)');
+        });
     </script>
 </body>
 </html>
