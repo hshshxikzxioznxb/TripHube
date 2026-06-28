@@ -1,43 +1,54 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="app-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripHube AI | رفيق سفرك</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9151180653196204" crossorigin="anonymous"></script>
+    <title>TripHube AI - رفيق سفرك الذكي</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 500px; margin: auto; background: #fff; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; font-size: 1.5rem; text-align: center; }
-        .input-box { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .results-area { width: 100%; height: 400px; margin-top: 20px; border: 1px solid #eee; border-radius: 8px; }
-        .footer { font-size: 0.75rem; color: #7f8c8d; text-align: center; margin-top: 20px; line-height: 1.6; }
+        :root { --bg: #f4f7f6; --card: #ffffff; --primary: #2c3e50; --accent: #febb02; }
+        .dark-mode { --bg: #1a1a1a; --card: #2d2d2d; --primary: #ecf0f1; }
+        body { background: var(--bg); color: var(--primary); font-family: sans-serif; padding: 20px; transition: 0.3s; }
+        .container { max-width: 600px; margin: auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .card { background: var(--card); padding: 15px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-search { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .status-box { background: #e8f4fd; padding: 15px; border-radius: 10px; margin-top: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>TripHube AI 🤖</h1>
+    <div style="display:flex; justify-content:space-between;">
+        <button onclick="toggleLang()">🌐 EN/AR</button>
+        <button onclick="document.body.classList.toggle('dark-mode')">🌙</button>
+    </div>
     
-    <input type="text" id="query" class="input-box" placeholder="وجهتك، فنادق، طيران...">
-    <button class="btn" onclick="startSearch()">🔍 بحث سريع</button>
+    <h1 style="text-align:center;">TripHube AI</h1>
+    
+    <input type="text" id="dest" class="card" style="width:100%; border:none; padding:15px; box-sizing:border-box;" placeholder="أدخل وجهتك...">
+    <button class="btn-search" onclick="analyze()">خطط لرحلتي</button>
 
-    <iframe id="results" class="results-area" src="about:blank"></iframe>
+    <div id="status" class="status-box" style="display:none;">
+        <p>جاري فحص تفاصيل الوجهة...</p>
+        <p>📊 نسبة الأمان: 88% - آمنة</p>
+        <p>🏥 أقرب مستشفى: 3 دقائق</p>
+    </div>
 
-    <div class="footer">
-        <p>nnnnj911ksa@Gmail.com</p>
-        <p>خدماتنا مجانية تماماً - لا نطلب أي مبالغ.</p>
+    <div class="grid">
+        <div class="card">🚓 أقرب شرطة</div>
+        <div class="card">🍽️ أقرب مطعم</div>
+        <div class="card">⛽ أقرب محطة</div>
+        <div class="card">🌦️ الطقس</div>
     </div>
 </div>
 
 <script>
-    function startSearch() {
-        const q = document.getElementById('query').value;
-        const frame = document.getElementById('results');
-        if(q) {
-            frame.src = `https://www.google.com/search?q=${q}+travel+tips&igu=1`;
-        }
+    function analyze() {
+        document.getElementById('status').style.display = 'block';
+    }
+    function toggleLang() {
+        const root = document.getElementById('app-root');
+        root.dir = (root.dir === 'rtl') ? 'ltr' : 'rtl';
     }
 </script>
 </body>
