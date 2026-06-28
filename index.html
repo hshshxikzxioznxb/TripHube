@@ -1,66 +1,47 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="root">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripHube AI | رفيقك الذكي للسفر</title>
+    <title>TripHube AI | رفيق سفرك الذكي</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9151180653196204" crossorigin="anonymous"></script>
     <style>
-        :root { --primary: #003580; --accent: #febb02; }
-        * { box-sizing: border-box; transition: 0.3s; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
-        
-        /* خلفية الفيديو */
-        .video-bg { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; filter: brightness(0.4); }
-        
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; animation: fadeIn 2s; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; width: 100%; max-width: 800px; margin-top: 30px; }
-        .card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 15px; border-radius: 12px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
-        .card:hover { transform: scale(1.05); background: var(--primary); }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .controls { margin-top: 20px; }
-        button { padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; background: var(--accent); }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #000; color: #fff; text-align: center; }
+        .bg-video { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; opacity: 0.5; object-fit: cover; }
+        .container { padding: 20px; background: rgba(0,0,0,0.7); border-radius: 20px; margin: 20px; }
+        .search-area { width: 100%; height: 500px; border: none; border-radius: 10px; background: white; margin-top: 20px; }
+        .footer-note { font-size: 0.8rem; color: #ccc; margin-top: 20px; }
+        .warning { color: #ff4d4d; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop class="video-bg">
+    <video autoplay muted loop class="bg-video">
         <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
     </video>
 
-    <div class="hero">
-        <h1 id="title">TripHube AI 🤖</h1>
-        <p id="desc">مساعدك الذكي الشامل لكل احتياجات السفر</p>
+    <div class="container">
+        <h1>TripHube AI 🤖</h1>
+        <p>كل خدمات السفر بذكاء اصطناعي واحد. (مجاني تماماً - لا نطلب أي دفع)</p>
         
-        <div class="grid">
-            <div class="card" onclick="go('flights')">✈️ طيران</div>
-            <div class="card" onclick="go('hotels')">🏨 فنادق</div>
-            <div class="card" onclick="go('cars')">🚗 سيارات</div>
-            <div class="card" onclick="go('esim')">📱 eSIM</div>
-            <div class="card" onclick="go('hospitals')">🏥 مستشفيات</div>
-            <div class="card" onclick="go('police')">🚓 شرطة</div>
-            <div class="card" onclick="go('weather')">🌦️ طقس</div>
-            <div class="card" onclick="go('currency')">💱 عملات</div>
-        </div>
+        <input type="text" id="searchInput" placeholder="اكتب وجهتك أو طلبك هنا..." style="padding:10px; width:80%; border-radius:5px;">
+        <button onclick="performSearch()">بحث داخل الموقع</button>
 
-        <div class="controls">
-            <button onclick="toggleLang()">English / العربية</button>
+        <iframe id="searchFrame" class="search-area" src="about:blank"></iframe>
+
+        <div class="footer-note">
+            <p>تواصل معنا: nnnnj911ksa@Gmail.com</p>
+            <p class="warning">⚠️ تنبيه: احذر من المنتحلين، نحن لا نطلب أي مبالغ مالية، جميع خدماتنا مجانية!</p>
+            <p>خصوصية عالية وحماية فائقة لمستخدمي TripHube.</p>
         </div>
     </div>
 
     <script>
-        function go(type) {
-            window.open(`https://www.google.com/search?q=${type}+near+me`, '_blank');
-        }
-        function toggleLang() {
-            const root = document.getElementById('root');
-            const isAr = root.getAttribute('dir') === 'rtl';
-            root.setAttribute('dir', isAr ? 'ltr' : 'rtl');
-            document.getElementById('title').innerText = isAr ? 'TripHube AI 🤖' : 'TripHube AI 🤖';
-            document.getElementById('desc').innerText = isAr ? 'Your smart AI travel companion' : 'مساعدك الذكي الشامل لكل احتياجات السفر';
+        function performSearch() {
+            const query = document.getElementById('searchInput').value;
+            const frame = document.getElementById('searchFrame');
+            // البحث يتم داخل الموقع عبر محرك جوجل المدمج
+            frame.src = `https://www.google.com/search?q=${query}+travel+guide+TripHube&igu=1`;
         }
     </script>
 </body>
