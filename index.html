@@ -1,55 +1,63 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="app-root">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripHube AI - رفيق سفرك الذكي</title>
+    <title>TripHube AI</title>
     <style>
-        :root { --bg: #f4f7f6; --card: #ffffff; --primary: #2c3e50; --accent: #febb02; }
-        .dark-mode { --bg: #1a1a1a; --card: #2d2d2d; --primary: #ecf0f1; }
-        body { background: var(--bg); color: var(--primary); font-family: sans-serif; padding: 20px; transition: 0.3s; }
-        .container { max-width: 600px; margin: auto; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .card { background: var(--card); padding: 15px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn-search { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        .status-box { background: #e8f4fd; padding: 15px; border-radius: 10px; margin-top: 15px; }
+        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: auto; }
+        
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .main-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        /* Search Area */
+        .btn-plan { width: 100%; padding: 15px; background: #f39c12; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; }
+        
+        /* Grid Layout */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .card { background: white; padding: 10px; border-radius: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-size: 0.8rem; }
+        
+        /* Status Box */
+        .status-box { background: white; padding: 15px; border-radius: 15px; margin-top: 15px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div style="display:flex; justify-content:space-between;">
-        <button onclick="toggleLang()">🌐 EN/AR</button>
-        <button onclick="document.body.classList.toggle('dark-mode')">🌙</button>
+    <div class="header">
+        <button>Contact Us</button>
+        <div>Dark Mode: ON</div>
     </div>
-    
-    <h1 style="text-align:center;">TripHube AI</h1>
-    
-    <input type="text" id="dest" class="card" style="width:100%; border:none; padding:15px; box-sizing:border-box;" placeholder="أدخل وجهتك...">
-    <button class="btn-search" onclick="analyze()">خطط لرحلتي</button>
 
-    <div id="status" class="status-box" style="display:none;">
-        <p>جاري فحص تفاصيل الوجهة...</p>
-        <p>📊 نسبة الأمان: 88% - آمنة</p>
-        <p>🏥 أقرب مستشفى: 3 دقائق</p>
+    <div class="main-card" style="text-align:center;">
+        <h1>TripHube AI</h1>
+        <p>Plan your perfect trip with AI</p>
+        <input type="text" placeholder="From" style="width:100%; padding:10px; margin:5px 0;">
+        <input type="text" placeholder="To" style="width:100%; padding:10px; margin:5px 0;">
+        <button class="btn-plan">Plan My Trip</button>
+    </div>
+
+    <div class="status-box">
+        <strong>Checking destination details...</strong>
+        <p>🛡️ Safety Rating: 88% - Safe</p>
+        <p>🏥 Nearest Hospital: 3 mins away</p>
     </div>
 
     <div class="grid">
-        <div class="card">🚓 أقرب شرطة</div>
-        <div class="card">🍽️ أقرب مطعم</div>
-        <div class="card">⛽ أقرب محطة</div>
-        <div class="card">🌦️ الطقس</div>
+        <div class="card">🛡️ Safety & Health</div>
+        <div class="card">✈️ Flights</div>
+        <div class="card">🏨 Hotels</div>
+        <div class="card">🚗 Cars</div>
+        <div class="card">🍽️ Restaurants</div>
+        <div class="card">👤 Tourist Guides</div>
+        <div class="card">📱 SIM Cards</div>
+        <div class="card">☀️ Weather</div>
     </div>
+    
+    <p style="text-align:center; font-size: 0.7rem;">Powered by TripHube</p>
 </div>
 
-<script>
-    function analyze() {
-        document.getElementById('status').style.display = 'block';
-    }
-    function toggleLang() {
-        const root = document.getElementById('app-root');
-        root.dir = (root.dir === 'rtl') ? 'ltr' : 'rtl';
-    }
-</script>
 </body>
 </html>
