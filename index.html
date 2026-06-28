@@ -1,133 +1,67 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripHube | مستشارك الذكي للسفر والمقارنة</title>
-    <!-- كود ربط أدسنس الرئيسي بالحساب الحقيقي -->
+    <title>TripHube AI | رفيقك الذكي للسفر</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9151180653196204" crossorigin="anonymous"></script>
     <style>
-        :root {
-            --primary-color: #003580;
-            --secondary-color: #006ce4;
-            --accent-color: #febb02;
-            --bg-color: #f7f9fa;
-            --text-color: #333;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
-        header { background-color: var(--primary-color); color: white; padding: 20px; text-align: center; }
-        header h1 { font-size: 24px; margin-bottom: 5px; }
-        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+        :root { --primary: #003580; --accent: #febb02; }
+        * { box-sizing: border-box; transition: 0.3s; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
         
-        /* تصميم بنرات الإعلانات لتكون متوافقة ومتناسقة */
-        .ads-container { background: #eee; border: 1px dashed #ccc; margin: 20px 0; padding: 10px; text-align: center; min-height: 90px; display: flex; justify-content: center; align-items: center; font-size: 12px; color: #666; }
-
-        .search-box { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .search-box h2 { color: var(--primary-color); margin-bottom: 15px; font-size: 18px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; }
-        .btn-search { width: 100%; background: var(--secondary-color); color: white; border: none; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background 0.3s; }
-        .btn-search:hover { background: #0056b3; }
+        /* خلفية الفيديو */
+        .video-bg { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; filter: brightness(0.4); }
         
-        .sections-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 25px; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
-        .card h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 16px; }
-        .card p { font-size: 14px; color: #666; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; animation: fadeIn 2s; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; width: 100%; max-width: 800px; margin-top: 30px; }
+        .card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 15px; border-radius: 12px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+        .card:hover { transform: scale(1.05); background: var(--primary); }
 
-        footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 40px; font-size: 14px; }
-        footer a { color: var(--accent-color); text-decoration: none; margin: 0 10px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .controls { margin-top: 20px; }
+        button { padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; background: var(--accent); }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>TripHube ✈️</h1>
-        <p>مساعدك الذكي لمقارنة الطيران، الفنادق، والوجهات السياحية</p>
-    </header>
+    <video autoplay muted loop class="video-bg">
+        <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+    </video>
 
-    <div class="container">
+    <div class="hero">
+        <h1 id="title">TripHube AI 🤖</h1>
+        <p id="desc">مساعدك الذكي الشامل لكل احتياجات السفر</p>
         
-        <!-- البنر الإعلاني الأول: تحت الهيدر مباشرة -->
-        <div class="ads-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-9151180653196204"
-                 data-ad-slot="1111111111"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+        <div class="grid">
+            <div class="card" onclick="go('flights')">✈️ طيران</div>
+            <div class="card" onclick="go('hotels')">🏨 فنادق</div>
+            <div class="card" onclick="go('cars')">🚗 سيارات</div>
+            <div class="card" onclick="go('esim')">📱 eSIM</div>
+            <div class="card" onclick="go('hospitals')">🏥 مستشفيات</div>
+            <div class="card" onclick="go('police')">🚓 شرطة</div>
+            <div class="card" onclick="go('weather')">🌦️ طقس</div>
+            <div class="card" onclick="go('currency')">💱 عملات</div>
         </div>
 
-        <div class="search-box">
-            <h2>🔍 ابحث عن رحلتك القادمة بالذكاء الاصطناعي</h2>
-            <div class="form-group">
-                <label>وجهة المغادرة</label>
-                <input type="text" placeholder="مثال: جدة، الرياض...">
-            </div>
-            <div class="form-group">
-                <label>وجهة الوصول</label>
-                <input type="text" placeholder="مثال: لندن، دبي، باريس...">
-            </div>
-            <div class="form-group">
-                <label>نوع الخدمة</label>
-                <select>
-                    <option>مقارنة رحلات الطيران الفسيحة</option>
-                    <option>البحث عن أفضل الفنادق والمنتجعات</option>
-                    <option>تخطيط جدول سياحي متكامل</option>
-                </select>
-            </div>
-            <button class="btn-search">ابحث بأرخص الأسعار فوراً</button>
+        <div class="controls">
+            <button onclick="toggleLang()">English / العربية</button>
         </div>
-
-        <!-- البنر الإعلاني الثاني: وسط المحتوى -->
-        <div class="ads-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-9151180653196204"
-                 data-ad-slot="2222222222"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
-        </div>
-
-        <div class="sections-grid">
-            <div class="card">
-                <h3>✈️ مقارنة طيران مرنة</h3>
-                <p>نبحث في أكثر من 700 خطوط طيران لنقدم لك السعر الصافي بدون عمولات خفية.</p>
-            </div>
-            <div class="card">
-                <h3>🏨 حجوارت فنادق ذكية</h3>
-                <p>تغطية كاملة لأفضل الفنادق والشقق السكنية مع تقييمات حقيقية من المسافرين.</p>
-            </div>
-            <div class="card">
-                <h3>🗺️ مرشدك السياحي الشخصي</h3>
-                <p>خطط يومية مخصصة لرحلتك بالاعتماد على ذكاء اصطناعي يحلل تفضيلاتك وميزانيتك.</p>
-            </div>
-        </div>
-
-        <!-- البنر الإعلاني الثالث: فوق الفوتر -->
-        <div class="ads-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-9151180653196204"
-                 data-ad-slot="3333333333"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
-        </div>
-
     </div>
 
-    <footer>
-        <p>&copy; 2026 TripHube. جميع الحقوق محفوظة.</p>
-        <p>
-            <a href="#">سياسة الخصوصية</a> | 
-            <a href="#">شروط الاستخدام</a> | 
-            <a href="#">اتصل بنا</a>
-        </p>
-    </footer>
-
+    <script>
+        function go(type) {
+            window.open(`https://www.google.com/search?q=${type}+near+me`, '_blank');
+        }
+        function toggleLang() {
+            const root = document.getElementById('root');
+            const isAr = root.getAttribute('dir') === 'rtl';
+            root.setAttribute('dir', isAr ? 'ltr' : 'rtl');
+            document.getElementById('title').innerText = isAr ? 'TripHube AI 🤖' : 'TripHube AI 🤖';
+            document.getElementById('desc').innerText = isAr ? 'Your smart AI travel companion' : 'مساعدك الذكي الشامل لكل احتياجات السفر';
+        }
+    </script>
 </body>
 </html>
